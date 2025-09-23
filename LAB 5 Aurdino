@@ -1,0 +1,35 @@
+int resistor = A5;
+int led = 2;
+
+
+void setup() {
+ Serial.begin(9600);
+  pinMode(resistor, INPUT);
+  pinMode(led, OUTPUT);
+}
+void loop() {
+int sensordata = analogRead(A5);
+Serial.println(sensordata);
+delay(200);
+
+int potValue = analogRead(A5);
+int ledBrightness = map(potValue, 0, 1023, 0, 255);
+analogWrite(2, ledBrightness);
+delay(200);
+
+if (potValue < 300 ){
+  digitalWrite(led, LOW);
+  Serial.println("should not blink");
+}
+else if(potValue >= 301 && potValue <= 700){
+  analogWrite(2, 100);
+  Serial.println("middle");
+}
+else if(potValue > 701){
+  analogWrite(2, 200);
+  digitalWrite(led, HIGH);
+  delay(200);
+  digitalWrite(led, LOW);
+  Serial.println("Blink");
+}
+}
