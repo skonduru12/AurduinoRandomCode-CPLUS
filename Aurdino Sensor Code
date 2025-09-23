@@ -1,0 +1,57 @@
+int sensor1Pin = 2;
+int sensor2Pin = 4;    
+int led1Pin = 8;
+int led2Pin = 7;
+int led3Pin = 12;      
+int sensor1Value = 0;
+int sensor2Value = 1;
+
+void setup() {
+  pinMode(sensor1Pin, INPUT_PULLUP);  
+  pinMode(sensor2Pin, INPUT_PULLUP);  
+  pinMode(led1Pin, OUTPUT);         
+  pinMode(led2Pin, OUTPUT);
+  pinMode(led3Pin, OUTPUT);          
+  Serial.begin(9600);
+}
+
+void loop() {
+  sensor1Value = digitalRead(sensor1Pin);
+  sensor2Value = digitalRead(sensor2Pin);
+
+
+  if (sensor1Value == HIGH && sensor2Value == HIGH){
+    while(sensor1Value == HIGH && sensor2Value == HIGH){
+    digitalWrite(led1Pin, LOW);
+    digitalWrite(led2Pin, LOW);
+    digitalWrite(led3Pin, HIGH);
+    delay(200); 
+    digitalWrite(led3Pin, LOW);
+    delay(200);
+    sensor1Value = digitalRead(sensor1Pin);
+    sensor2Value = digitalRead(sensor2Pin);
+    }
+    digitalWrite(led1Pin, LOW);
+    digitalWrite(led2Pin, LOW );
+    Serial.println("Bingo");
+    }
+  else if(sensor1Value == HIGH && sensor2Value == LOW){
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, LOW);
+    digitalWrite(led3Pin, LOW);
+    Serial.println("Bingo");
+
+ }
+  else if(sensor1Value == LOW && sensor2Value == HIGH){
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led1Pin, LOW);
+    digitalWrite(led3Pin, LOW);
+    Serial.println("Bingo");
+ }
+ else{
+  digitalWrite(led1Pin, LOW);
+  digitalWrite(led2Pin, LOW);
+  digitalWrite(led3Pin, LOW);
+  Serial.println("Na");
+ }
+}
