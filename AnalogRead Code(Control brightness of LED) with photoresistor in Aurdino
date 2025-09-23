@@ -1,0 +1,25 @@
+int sensor_pin = A5;
+int led = 2;
+
+
+void setup() {
+ 
+  Serial.begin(9600);
+  pinMode(sensor_pin, INPUT);
+  pinMode(led, OUTPUT);
+
+
+}
+
+
+void loop() {
+
+
+int sensordata = analogRead(A5);
+Serial.println(sensordata);
+delay(200);
+int potValue = analogRead(A5);      
+int ledBrightness = map(potValue, 0, 1023, 0, 255);
+analogWrite(2, ledBrightness);
+delay(200);
+}
